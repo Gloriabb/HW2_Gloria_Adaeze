@@ -1,0 +1,43 @@
+---
+title: "Problem 1"
+author: "Gloria and Adaeze"
+format: pdf
+editor: visual
+---
+
+# 1. Copy paste and run the tribble given below.
+```{r}
+library(tidyverse)
+library(purrr)
+
+tribble( ~x, ~y, ~w, ~z,
+210, 300, 220, 180,
+102, 100, 119, 187,
+176, 175, 188, 173,
+87, 95, 91, 94,
+202, 210, 234, 218,
+110, 122, 131, 128,
+) -> dt
+dt
+```
+## 1a. Use and show a map function to find the “mean” of each column of the dt data table
+```{r}
+means <- map_dbl(dt, mean)
+round(means, 1)
+```
+## 1b. Use and show a map function to find the “standard deviation” of each column of the dt
+```{r}
+sd <- map_dbl(dt, sd)
+round(sd, 1)
+```
+## 1c. Use and show a map function that will calculate the “square root” of each value of each column of the data table dt.
+```{r}
+sqrt <- dt %>% 
+map(~sqrt(.))
+sqrt
+```
+
+## 1d. Use R code to find the “mean”, “max”, “1st Quartile”, “3rd Quartile”, “Median”, and “Min” for each column of the dt data table. (Hint: You do not have to use a map function)
+```{r}
+summary(dt)
+```
