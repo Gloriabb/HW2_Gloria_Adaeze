@@ -1,0 +1,66 @@
+---
+title: "Problem 2"
+author: "Gloria and Adaeze"
+format: pdf
+editor: visual
+---
+
+# 2. Write a function that uses a for loop that, for each iteration, randomly draws 5 observations from an exponential distribution with “rate” parameter 1 (use rexp()) and calculates its “mean”. It should do this 10,000 times. Choose an appropriate plot to plot the distribution of “means
+
+```{r}
+si_means <- function() {
+  means <- numeric(10000)
+  for (i in 1:10000) {
+    random_draw <- rexp(5, rate = 1)
+    means[i] <- mean(random_draw)
+  }
+  
+  return(means)
+}
+
+means <- si_means()
+
+hist(means, main = "Distribution of Means from Exponential Distribution", xlab = "Mean", breaks = 30, col = "purple")
+```
+
+## 2a. Repeat part 1 by using a map\_\*() function.
+
+```{r}
+si_means_map <- function() {
+  means <- map_dbl(1:10000, ~ mean(rexp(5, rate = 1)))
+  return(means)
+}
+means_map <- si_means_map()
+
+hist(means_map, main = "Distribution of Means from Exponential Distribution (map_dbl)", 
+     xlab = "Mean", breaks = 30, col = "blue")
+```
+
+## 2b. Repeat part 1 by using the replicate() function
+
+```{r}
+si_means_replicate <- function() {
+  means <- replicate(10000, mean(rexp(5, rate = 1)))
+  return(means)
+}
+means_replicate <- si_means_replicate()
+
+# Plot a histogram of the means with blue color
+hist(means_replicate, main = "Distribution of Means from Exponential Distribution (replicate)", 
+     xlab = "Mean", breaks = 30, col = "yellow")
+```
+
+## 2c. Use a another for loop that will print out plots for sample sizes of 5, 10, and 20 observations (instead of just 5)
+
+```{r}
+si_and_plot <- function() {
+  sam_sizes <- c(5, 10, 20)
+  for (n in sam_sizes) {
+    means <- replicate(10000, mean(rexp(n, rate = 1)))
+    
+    hist(means, main = paste("Distribution of Means with Sample Size", n),
+         xlab = "Mean", breaks = 30, col = "pink")
+  }
+}
+si_and_plot()
+```
